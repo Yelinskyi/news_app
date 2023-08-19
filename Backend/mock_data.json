@@ -1,0 +1,47 @@
+[
+  {
+    "title": "1 New",
+    "date": "01-07-2023",
+    "text": "Some text ...",
+    "comments": [
+      { "author": "Bob", "date": "01-07-2023", "text": "Some Bob's comment ..." },
+      { "author": "Sam", "date": "02-07-2023", "text": "Some Sam's comment ..." }
+    ]
+  },
+  {
+    "title": "2 New",
+    "date": "01-07-2023",
+    "text": "Some text ...",
+    "comments": [
+      { "author": "Bob", "date": "01-07-2023", "text": "Some Bob's comment ..." },
+      { "author": "Sam", "date": "02-07-2023", "text": "Some Sam's comment ..." }
+    ]
+  },
+  {
+    "title": "3 New",
+    "date": "01-07-2023",
+    "text": "Some text ...",
+    "comments": [
+      { "author": "Bob", "date": "01-07-2023", "text": "Some Bob's comment ..." },
+      { "author": "Sam", "date": "02-07-2023", "text": "Some Sam's comment ..." }
+    ]
+  },
+  {
+    "title": "4 New",
+    "date": "01-07-2023",
+    "text": "Some text ...",
+    "comments": [
+      { "author": "Bob", "date": "01-07-2023", "text": "Some Bob's comment ..." },
+      { "author": "Sam", "date": "02-07-2023", "text": "Some Sam's comment ..." }
+    ]
+  },
+  {
+    "title": "5 New",
+    "date": "01-07-2023",
+    "text": "Some text ...",
+    "comments": [
+      { "author": "Bob", "date": "01-07-2023", "text": "Some Bob's comment ..." },
+      { "author": "Sam", "date": "02-07-2023", "text": "Some Sam's comment ..." }
+    ]
+  }
+]

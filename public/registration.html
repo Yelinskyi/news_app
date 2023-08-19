@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Register</h1>
+  </header>
+  <main>
+    <form class="registration-form" method="post" action="http://localhost:3000/register" id="registration-form">
+      <input type="text" placeholder="NickName" name="nickname" required>
+      <input type="email" placeholder="Email" name="email" required>
+      <input type="password" placeholder="Password" name="password" minlength="8" required>
+      <input type="password" placeholder="Repeat password" name="repeatPassword" minlength="8" required>
+      <p id="errPassword" style="color:red; display:none;">Passwords should be the same</p>
+      <button type="submit">Submit</button>
+    </form>
+  </main>
+  <footer>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("registration-form");
+      form.addEventListener("submit", function (event) {
+        const password = form.querySelector('input[name="password"]').value;
+        const repeatPassword = form.querySelector('input[name="repeatPassword"]').value;
+        const errPassword = document.getElementById("errPassword");
+        
+        if (password !== repeatPassword) {
+          errPassword.style.display = "block";
+          event.preventDefault();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

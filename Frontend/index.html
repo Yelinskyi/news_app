@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>It news</title>
+  <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+  <header>
+    <h1>It news</h1>
+    <nav>
+      <div id="logout" class="login-registration">
+        <button id="logout-button" type="button">Logout</button>
+      </div>
+      <div id="login" class="login-registration">
+          <input id="login-email" type="email" placeholder="Email" name="email" required>
+          <input id="login-password" type="password" placeholder="Password" name="password" minlength="8" required>
+          <button id="login-button" type="button">Login</button>
+        <a href="http://localhost:3000/registration.html" id="register">Register</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="left-column-container">
+      <div class="left-column">
+        <ul class="news-list">
+          <!-- List of news are addited into JavaScript -->
+        </ul>
+      </div>
+    </div>
+    <div class="center-column">
+      <!-- News with comments are addited into JavaScript -->
+    </div>
+    <div class="right-column"></div>
+  </main>
+  <footer>
+    <p>&copy; 2023 All rights reserved.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
