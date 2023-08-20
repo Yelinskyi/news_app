@@ -42,11 +42,23 @@ function showNews(newsFromServer) {
       <!-- Form for adding comments -->
       <div class="comment-form hidden">
         <textarea placeholder="Enter your comment" id="comment-text-${index}"></textarea>
-        <button onclick="addComment(${index})">Add Comment</button>
+        <button id="comment-btn-${index}" onclick="addComment(${index})">Add Comment</button>
       </div>
     </div>
   `;
     centerColumn.appendChild(newsDiv);
+
+    const textInput = document.getElementById(`comment-text-${index}`);
+    const commentBtn = document.getElementById(`comment-btn-${index}`);
+    commentBtn.disabled = true;
+    textInput.addEventListener("input", () => {
+      const jwtToken = localStorage.getItem("jwt");
+      if (textInput.value.trim() !== "" && jwtToken && jwtToken !== "") {
+        commentBtn.disabled = false;
+      } else {
+        commentBtn.disabled = true;
+      }
+    });
   });
 }
 
