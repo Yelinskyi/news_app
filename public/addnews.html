@@ -28,29 +28,35 @@
 
 
     <script>
+      const sendBtn = document.getElementById("news-button");
+      const logoutDiv = document.getElementById("logout");
+      const loginDiv = document.getElementById("login");
+      const loginButton = document.getElementById("login-button");
+      const emailInput = document.getElementById("login-email");
+      const passwordInput = document.getElementById("login-password");
+      const logoutButton = document.getElementById("logout-button");
+      const titleInput = document.getElementById("title-news");
+      const articleInput = document.getElementById("article-news");
+
       // SHOW logIN or logOUT
       function showLoginOrLogout () {
         const jwtToken = localStorage.getItem("jwt");
-        const logoutDiv = document.getElementById("logout");
-        const loginDiv = document.getElementById("login");
-        const sendBtn = document.getElementById("news-button");
+
         if (jwtToken && jwtToken !== "") {
           logoutDiv.style.display = "block";
           loginDiv.style.display = "none";
-          sendBtn.disabled = false;
+          // sendBtn.disabled = false;
         } else {
           logoutDiv.style.display = "none";
           loginDiv.style.display = "block";
-          sendBtn.disabled = true;
+          // sendBtn.disabled = true;
         }
+        checkInputText();
       }
       showLoginOrLogout();
 
       // LOGIN
-      const loginButton = document.getElementById("login-button");
       loginButton.addEventListener("click", function () {
-        const emailInput = document.getElementById("login-email");
-        const passwordInput = document.getElementById("login-password");
         const email = emailInput.value;
         const password = passwordInput.value;
 
@@ -92,7 +98,6 @@
       });
 
       //LOGOUT
-      const logoutButton = document.getElementById("logout-button");
       logoutButton.addEventListener("click", function () {
         fetch("http://localhost:3000/logout", {
           method: "GET",
@@ -113,10 +118,7 @@
       });
 
       //SEND NEWS
-      const newsButton = document.getElementById("news-button");
-      newsButton.addEventListener("click", function () {
-        const titleInput = document.getElementById("title-news");
-        const articleInput = document.getElementById("article-news");
+      sendBtn.addEventListener("click", function () {
         const jwtToken = localStorage.getItem("jwt");
         const title = titleInput.value;
         const text = articleInput.value;
@@ -142,6 +144,19 @@
           });
       titleInput.value = ''
       });
+
+      // CHECK IF THERE IS TEXT
+      function checkInputText() {
+        const jwtToken = localStorage.getItem("jwt");
+
+        if (titleInput.value.trim() !== '' && articleInput.value.trim() !== '' && jwtToken && jwtToken !== "") {
+          sendBtn.disabled = false;
+        } else {
+          sendBtn.disabled = true;
+        }
+      }
+      titleInput.addEventListener('input', checkInputText);
+      articleInput.addEventListener('input', checkInputText);
     </script>
 </body>
 </html>
