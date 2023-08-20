@@ -4,9 +4,9 @@ const userModel = require('../models/User.model')
 const getToken = req => {
   const JWT_KEY_NAME = process.env.JWT_KEY_NAME;
   const tokenFromCookie = req.cookies[JWT_KEY_NAME];
-  console.log(tokenFromCookie);
+  console.log('tokenFromCookie', tokenFromCookie);
   const tokenFromHeader = req.headers[JWT_KEY_NAME];
-  console.log(tokenFromHeader);
+  console.log('tokenFromHeader', tokenFromHeader,);
   // const decodedToken = jwt.verify(tokenFromHeader, process.env.JWT_SECRET);
   // const emailFromToken = decodedToken.email;
   // console.log(emailFromToken)
