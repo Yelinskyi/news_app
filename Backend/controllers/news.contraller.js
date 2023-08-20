@@ -35,7 +35,8 @@ const addcomment = async (req, res) => {
     news.comments.push({
       // author: comment.author,
       author: nickname,
-      text: comment.text
+      text: comment.text,
+      date: comment.date
     });
     await news.save();
 

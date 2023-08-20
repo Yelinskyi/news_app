@@ -95,8 +95,8 @@ function addComment(index) {
     return;
   }
 
-  const date = new Date().toLocaleDateString();
-  const comment = { author, date, text, newsid: newsData[index]._id};
+  const date = new Date().toLocaleString();
+  const comment = { author, text, date, newsid: newsData[index]._id};
   newsData[index].comments.push(comment);
   // Send new comment to DB
   sendCommentToNews(comment);
@@ -106,17 +106,16 @@ function addComment(index) {
   showComments(index);
 }
 
-// function getCookie(name) {
-//   const value = `; ${document.cookie}`;
-//   const parts = value.split(`; ${name}=`);
-//   console.log(parts);
-//   if (parts.length === 2) return parts.pop().split(';').shift();
-// }
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  console.log(parts);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
 function sendCommentToNews(comment) {
-  // let jwtToken = getCookie('jwt');
-  // console.log(jwtToken)
-  // jwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InllbGluc2t5aUBpY2xvdWQuY29tIiwiaWF0IjoxNjkyMzI2NTMwLCJleHAiOjE2OTIzNjk3MzB9.JeF72ABsvd6Ze3uACGEYFp-EMRehXk3ffPyZ6dPHeXk";
+  let jwtToken = getCookie('jwt');
+  console.log(jwtToken)
   
   jwtToken = localStorage.getItem("jwt");
   fetch('http://localhost:3000/addcomment',
@@ -161,16 +160,15 @@ function sendCommentToNews(comment) {
     })
       .then(response => {
         console.log("Response headers:", response.headers);
-    
         const jwtHeader = response.headers.get("jwt");
+        console.log("JWT token:", jwtHeader);
         if (jwtHeader) {
           localStorage.setItem("jwt", jwtHeader);
-          console.log("JWT token:", jwtHeader);
         }
     
         const cookies = response.headers.get("Set-Cookie");
+        console.log("Cookies received:", cookies);
         if (cookies) {
-          console.log("Cookies received:", cookies);
           const cookieArray = cookies.split("; ");
           for (const cookie of cookieArray) {
             const [name, value] = cookie.split("=");

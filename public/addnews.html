@@ -62,12 +62,15 @@
           body: JSON.stringify({ email, password }),
         })
           .then(response => {
+            console.log("Response headers:", response.headers);
             const jwtHeader = response.headers.get("jwt");
+            console.log("JWT token:", jwtHeader);
             if (jwtHeader) {
               localStorage.setItem("jwt", jwtHeader);
             }
         
             const cookies = response.headers.get("Set-Cookie");
+            console.log("Cookies received:", cookies);
             if (cookies) {
               const cookieArray = cookies.split("; ");
               for (const cookie of cookieArray) {

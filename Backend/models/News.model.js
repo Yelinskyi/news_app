@@ -8,13 +8,15 @@ const newsSchema = new mongoose.Schema({
   },
   date: {
     type: String,
-    default: () => {
-      const currentDate = new Date();
-      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-      const day = String(currentDate.getDate()).padStart(2, '0');
-      const year = currentDate.getFullYear();
-      return `${month}/${day}/${year}`;
-    }
+    default: new Date().toLocaleString()
+    // default: () => {
+    //   // const currentDate = new Date();
+    //   // const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    //   // const day = String(currentDate.getDate()).padStart(2, '0');
+    //   // const year = currentDate.getFullYear();
+    //   // return `${month}/${day}/${year}`;
+    //   return new Date().toLocaleString();
+    // }
   },
   text: {
     type: String,
@@ -28,13 +30,15 @@ const newsSchema = new mongoose.Schema({
       },
       date: {
         type: String,
-        default: () => {
-          const currentDate = new Date();
-          const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-          const day = String(currentDate.getDate()).padStart(2, '0');
-          const year = currentDate.getFullYear();
-          return `${month}/${day}/${year}`;
-        }
+        default: new Date().toLocaleString()
+        // default: () => {
+        //   // const currentDate = new Date();
+        //   // const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        //   // const day = String(currentDate.getDate()).padStart(2, '0');
+        //   // const year = currentDate.getFullYear();
+        //   // return `${month}/${day}/${year}`;
+        //   return new Date().toLocaleString();
+        // }
       },
       text: {
         type: String,
