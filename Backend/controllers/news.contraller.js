@@ -46,8 +46,36 @@ const addcomment = async (req, res) => {
   }
 }
 
+const deletecomment = async (req, res) => {
+  try {
+    const { id } = req.params
+    console.log(id)
+
+    await newsModel.findOneAndUpdate(
+      { 'comments._id': id },
+      { $pull: { comments: { _id: id } } },
+      { new: true }
+    )
+    .then(updatedNews => {
+      if (updatedNews) {
+        console.log(`Ccomment with with id: ${id} deleted from news:`, updatedNews);
+      } else {
+        console.log(`Didn't find comment with with id: ${id}`);
+      }
+    })
+    .catch(error => {
+      console.error(`deleted error with id: ${id}:`, error);
+    });
+    res.sendStatus(200)
+  } catch (deleteError) {
+    res.status(500).send('Server Error')
+  }
+}
+
+
 module.exports = {
   news,
   addnews,
-  addcomment
+  addcomment,
+  deletecomment
 }

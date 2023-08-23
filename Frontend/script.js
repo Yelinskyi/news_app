@@ -85,14 +85,30 @@ function showComments(index) {
   const commentsList = document.getElementById(`comments-${index}`);
   commentsList.innerHTML = "";
 
+  let isAdmin = localStorage.getItem('isAdmin');
+  if (isAdmin !== 'true') {
+    isAdmin = undefined;
+  }
+
   newsData[index].comments.forEach(comment => {
     const li = document.createElement("li");
+    li.setAttribute('id', comment._id);
     li.innerHTML = `
       <span class="comment-author">${comment.author}</span>
       <span class="comment-date">Date: ${comment.date}</span>
+      ${isAdmin ? `<button id="${comment._id}" class="delete-comment-button" data-comment-id="${comment._id}">
+        <img src="../public/icons/delete.png" alt="Delete">
+      </button>` : ''}
       <p>${comment.text}</p>
     `;
+
     commentsList.appendChild(li);
+    
+    const deleteButton = document.getElementById(`${comment._id}`);
+    deleteButton.addEventListener("click", () => {
+      deleteComment(comment._id);
+    });
+    
   });
 }
 
@@ -125,6 +141,7 @@ function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
+// SEND NEW COMMENT TO BD
 function sendCommentToNews(comment) {
   let jwtToken = getCookie('jwt');
   console.log(jwtToken)
@@ -138,9 +155,8 @@ function sendCommentToNews(comment) {
         "Content-Type": "application/json",
         "jwt": jwtToken
        },
+      credentials: 'include',
       body: JSON.stringify(comment),
-      // credentials: 'include',
-      // credentials: "same-origin"
     }
   )
     .then(response => {
@@ -152,6 +168,23 @@ function sendCommentToNews(comment) {
     .catch(error => {
       console.error('Error fetching data:', error);
       return [];
+    });
+}
+
+// DELETE COMMENT
+function deleteComment(commentId) {
+  console.log(`Deleting comment with ID: ${commentId}`);
+  jwtToken = localStorage.getItem("jwt");
+  fetch(`http://localhost:3000/deletecomment/${commentId}`, {
+    method: "DELETE",
+    headers: { 
+      "Accept": "application/json", 
+      "Content-Type": "application/json",
+      "jwt": jwtToken
+     },
+  })
+    .catch(error => {
+      console.error("Error deleting comment:", error);
     });
 }
 
@@ -193,6 +226,7 @@ function sendCommentToNews(comment) {
       .then(data => {
         localStorage.setItem('nickname', data.nickname);
         localStorage.setItem('jwt', data.jwt);
+        localStorage.setItem('isAdmin', data.isAdmin);
         showLoginOrLogout();
       })
       .catch(error => {
@@ -226,9 +260,19 @@ function sendCommentToNews(comment) {
     const jwtToken = localStorage.getItem("jwt");
     const logoutDiv = document.getElementById("logout");
     const loginDiv = document.getElementById("login");
+
+    let isAdmin = localStorage.getItem('isAdmin');
+    if (isAdmin !== 'true') {
+      isAdmin = undefined;
+    }
+    const addNewsBtn = document.getElementById("addmews-btn");
     if (jwtToken && jwtToken !== "") {
       logoutDiv.style.display = "block";
       loginDiv.style.display = "none";
+      console.log("ISADMIN: ", isAdmin)
+      if (isAdmin === 'true') {
+        addNewsBtn.hidden = false;
+      }
     } else {
       logoutDiv.style.display = "none";
       loginDiv.style.display = "block";

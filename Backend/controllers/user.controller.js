@@ -80,7 +80,9 @@ const login = async (req, res) => {
     .header({ [JWT_KEY]: token })
       .cookie(JWT_KEY, token, { httpOnly: false })
       .cookie(COOKIE_NICK_NAME, user.nickname, { httpOnly: false })
-      .json({jwt: token, nickname: user.nickname})
+      // .cookie(JWT_KEY, token, { httpOnly: false, path: '/Frontend' })
+      // .cookie(COOKIE_NICK_NAME, user.nickname, { httpOnly: false, path: '/news-app' })
+      .json({jwt: token, nickname: user.nickname, isAdmin: user.isAdmin })
       // .redirect("http://127.0.0.1:5501/Frontend/index.html");
   } catch (userLoginError) {
     res.status(500).send(userLoginError.message)

@@ -8,11 +8,11 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = process.env.PORT;
 const { register, login, logout } = require('./controllers/user.controller')
-const { news, addnews, addcomment } = require('./controllers/news.contraller')
+const { news, addnews, addcomment, deletecomment } = require('./controllers/news.contraller')
 const { auth, adminAuth } = require('./middleware/auth')
 
 const urlencodedParser = express.urlencoded({extended: false})
-app.use(cors());
+// app.use(cors());
 app.use(cors({ origin: 'http://127.0.0.1:5501', credentials: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -34,6 +34,8 @@ app.get('/news', news);
 app.post('/addnews', auth, adminAuth, addnews);
 
 app.post('/addcomment', auth, addcomment);
+
+app.delete('/deletecomment/:id', auth, adminAuth, deletecomment)
 
 mongoose.connection.once('open', () => {
   app.listen(PORT, () => {
