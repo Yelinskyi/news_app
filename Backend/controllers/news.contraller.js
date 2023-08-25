@@ -9,6 +9,7 @@ const addnews = async (req, res) => {
   if(!req.body) return response.sendStatus(400);
   try {
     const { body: news } = req;
+    news.date = new Date().toLocaleString();
     newNews = await newsModel.create(news);
     // console.log(newNews._id);
   } catch (dbErr) {
