@@ -16,7 +16,7 @@ const urlencodedParser = express.urlencoded({extended: false})
 app.use(cors({ origin: 'http://127.0.0.1:5501', credentials: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.static(__dirname + "/../public"));
+app.use(express.static(__dirname + "/public"));
 app.use(urlencodedParser, function(request, response, next){
   next();
 });
