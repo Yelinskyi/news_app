@@ -60,7 +60,8 @@
         const email = emailInput.value;
         const password = passwordInput.value;
 
-        fetch("http://localhost:3000/login", {
+        // fetch("http://localhost:3000/login", {
+        fetch("https://arcane-refuge-43265-ef7d32e9edde.herokuapp.com/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -99,7 +100,8 @@
 
       //LOGOUT
       logoutButton.addEventListener("click", function () {
-        fetch("http://localhost:3000/logout", {
+        // fetch("http://localhost:3000/logout", {
+        fetch("https://arcane-refuge-43265-ef7d32e9edde.herokuapp.com/logout", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -122,7 +124,8 @@
         const jwtToken = localStorage.getItem("jwt");
         const title = titleInput.value;
         const text = articleInput.value;
-        fetch("http://localhost:3000/addnews", {
+        // fetch("http://localhost:3000/addnews", {
+        fetch("https://arcane-refuge-43265-ef7d32e9edde.herokuapp.com/addnews", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

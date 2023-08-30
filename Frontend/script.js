@@ -1,5 +1,6 @@
 function getNewsFromServer() {
-  return fetch('http://localhost:3000/news')
+  // return fetch('http://localhost:3000/news')
+  return fetch('https://arcane-refuge-43265-ef7d32e9edde.herokuapp.com/news')
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -147,7 +148,8 @@ function sendCommentToNews(comment) {
   console.log(jwtToken)
   
   jwtToken = localStorage.getItem("jwt");
-  fetch('http://localhost:3000/addcomment',
+  // fetch('http://localhost:3000/addcomment',
+  fetch('https://arcane-refuge-43265-ef7d32e9edde.herokuapp.com/addcomment',
     { 
       method: "POST", 
       headers: { 
@@ -175,7 +177,8 @@ function sendCommentToNews(comment) {
 function deleteComment(commentId) {
   console.log(`Deleting comment with ID: ${commentId}`);
   jwtToken = localStorage.getItem("jwt");
-  fetch(`http://localhost:3000/deletecomment/${commentId}`, {
+  // fetch(`http://localhost:3000/deletecomment/${commentId}`, {
+  fetch(`https://arcane-refuge-43265-ef7d32e9edde.herokuapp.com/deletecomment/${commentId}`, {
     method: "DELETE",
     headers: { 
       "Accept": "application/json", 
@@ -196,7 +199,8 @@ function deleteComment(commentId) {
     const email = emailInput.value;
     const password = passwordInput.value;
 
-    fetch("http://localhost:3000/login", {
+    // fetch("http://localhost:3000/login", {
+    fetch("https://arcane-refuge-43265-ef7d32e9edde.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -237,7 +241,8 @@ function deleteComment(commentId) {
   //LOGOUT
   const logoutButton = document.getElementById("logout-button");
   logoutButton.addEventListener("click", function () {
-    fetch("http://localhost:3000/logout", {
+    // fetch("http://localhost:3000/logout", {
+    fetch("https://arcane-refuge-43265-ef7d32e9edde.herokuapp.com/logout", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
