@@ -77,13 +77,11 @@ const deletecomment = async (req, res) => {
 const deletenews = async (req, res) => {
   try {
     const { id } = req.params;
-    const news = await newsModel.findById(id);
+    const deletedNews = await newsModel.deleteOne({ _id: id });
 
-    if (!news) {
+    if (deletedNews.deletedCount === 0) {
       return res.status(404).json({ error: 'News not found' });
     }
-
-    await news.remove();
 
     res.sendStatus(200);
   } catch (deleteError) {

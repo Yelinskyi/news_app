@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = process.env.PORT;
 const { register, login, logout } = require('./controllers/user.controller')
-const { news, addnews, addcomment, deletecomment } = require('./controllers/news.contraller')
+const { news, addnews, addcomment, deletecomment, deletenews } = require('./controllers/news.contraller')
 const { auth, adminAuth } = require('./middleware/auth')
 
 const urlencodedParser = express.urlencoded({extended: false})
@@ -36,6 +36,9 @@ app.post('/addnews', auth, adminAuth, addnews);
 app.post('/addcomment', auth, addcomment);
 
 app.delete('/deletecomment/:id', auth, adminAuth, deletecomment)
+
+app.delete('/deletenews/:id', auth, adminAuth, deletenews)
+
 
 mongoose.connection.once('open', () => {
   app.listen(PORT, () => {

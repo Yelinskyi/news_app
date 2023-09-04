@@ -208,6 +208,7 @@ function deleteComment(commentId) {
 function deleteNews(newsId) {
   console.log(`Deleting newst with ID: ${newsId}`);
   jwtToken = localStorage.getItem("jwt");
+  // fetch(`http://localhost:3000/deletenews/${newsId}`, {
   fetch(`https://arcane-refuge-43265-ef7d32e9edde.herokuapp.com/deletenews/${newsId}`, {
     method: "DELETE",
     headers: { 
