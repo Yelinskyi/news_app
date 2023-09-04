@@ -57,10 +57,12 @@ function showNews(newsFromServer) {
   `;
     centerColumn.appendChild(newsDiv);
 
-    const deleteNewsButton = document.getElementById(`btn-del-news-${newsItem._id}`);
-    deleteNewsButton.addEventListener("click", () => {
-      deleteNews(newsItem._id);
-    });
+    if (isAdmin) {
+      const deleteNewsButton = document.getElementById(`btn-del-news-${newsItem._id}`);
+      deleteNewsButton.addEventListener("click", () => {
+        deleteNews(newsItem._id);
+      });
+    }
 
     const textInput = document.getElementById(`comment-text-${index}`);
     const commentBtn = document.getElementById(`comment-btn-${index}`);
@@ -118,11 +120,13 @@ function showComments(index) {
 
     commentsList.appendChild(li);
     
-    const deleteButton = document.getElementById(`btn-del-comment-${comment._id}`);
-    deleteButton.addEventListener("click", () => {
-      deleteComment(comment._id);
-    });
-    
+    if (isAdmin) {
+      const deleteButton = document.getElementById(`btn-del-comment-${comment._id}`);
+      deleteButton.addEventListener("click", () => {
+        deleteComment(comment._id);
+      });
+    }
+
   });
 }
 
