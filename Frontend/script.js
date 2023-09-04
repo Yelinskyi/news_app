@@ -29,6 +29,11 @@ function showNews(newsFromServer) {
 
   newsFromServer.forEach((newsItem, index) => {
 
+    let isAdmin = localStorage.getItem('isAdmin');
+    if (isAdmin !== 'true') {
+      isAdmin = undefined;
+    }
+
     // Add news content to the central column
     const newsDiv = document.createElement("div");
     newsDiv.classList.add("news");
@@ -38,6 +43,9 @@ function showNews(newsFromServer) {
     <div class="news-info">
       <span class="date">Date: ${newsItem.date}</span>
       <p>${newsItem.text}</p>
+      ${isAdmin ? `<button id="btn-del-news-${newsItem._id}" class="delete-news-button" data-comment-id="${newsItem._id}">
+      <img src="../public/icons/delete.png" alt="Delete">
+      </button>` : ''}
       <a href="#" class="comments-link" onclick="toggleComments(${index}, event)">comments</a>
       <ul class="comments-list hidden" id="comments-${index}"></ul>
       <!-- Form for adding comments -->
@@ -48,6 +56,11 @@ function showNews(newsFromServer) {
     </div>
   `;
     centerColumn.appendChild(newsDiv);
+
+    const deleteNewsButton = document.getElementById(`btn-del-news-${newsItem._id}`);
+    deleteNewsButton.addEventListener("click", () => {
+      deleteNews(newsItem._id);
+    });
 
     const textInput = document.getElementById(`comment-text-${index}`);
     const commentBtn = document.getElementById(`comment-btn-${index}`);
@@ -97,7 +110,7 @@ function showComments(index) {
     li.innerHTML = `
       <span class="comment-author">${comment.author}</span>
       <span class="comment-date">Date: ${comment.date}</span>
-      ${isAdmin ? `<button id="${comment._id}" class="delete-comment-button" data-comment-id="${comment._id}">
+      ${isAdmin ? `<button id="btn-del-comment-${comment._id}" class="delete-comment-button" data-comment-id="${comment._id}">
         <img src="../public/icons/delete.png" alt="Delete">
       </button>` : ''}
       <p>${comment.text}</p>
@@ -105,7 +118,7 @@ function showComments(index) {
 
     commentsList.appendChild(li);
     
-    const deleteButton = document.getElementById(`${comment._id}`);
+    const deleteButton = document.getElementById(`btn-del-comment-${comment._id}`);
     deleteButton.addEventListener("click", () => {
       deleteComment(comment._id);
     });
@@ -191,6 +204,23 @@ function deleteComment(commentId) {
     });
 }
 
+// DELETE NEWS
+function deleteNews(newsId) {
+  console.log(`Deleting newst with ID: ${newsId}`);
+  jwtToken = localStorage.getItem("jwt");
+  fetch(`https://arcane-refuge-43265-ef7d32e9edde.herokuapp.com/deletenews/${newsId}`, {
+    method: "DELETE",
+    headers: { 
+      "Accept": "application/json", 
+      "Content-Type": "application/json",
+      "jwt": jwtToken
+     },
+  })
+    .catch(error => {
+      console.error("Error deleting news:", error);
+    });
+}
+
   // LOGIN
   const loginButton = document.getElementById("login-button");
   loginButton.addEventListener("click", function () {
@@ -265,6 +295,12 @@ function deleteComment(commentId) {
     const jwtToken = localStorage.getItem("jwt");
     const logoutDiv = document.getElementById("logout");
     const loginDiv = document.getElementById("login");
+    const logoutButton = document.getElementById("logout-button");
+    const userNickname = localStorage.getItem("nickname");
+
+    if (userNickname) {
+      logoutButton.textContent = userNickname + ", Logout";
+    }
 
     let isAdmin = localStorage.getItem('isAdmin');
     if (isAdmin !== 'true') {

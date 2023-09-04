@@ -163,6 +163,12 @@ footer {
   
 }
 
+.delete-news-button {
+  border: none;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
 .registration-form {
   padding: 20px;
     background-color: #fff;

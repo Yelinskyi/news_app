@@ -59,7 +59,7 @@ const deletecomment = async (req, res) => {
     )
     .then(updatedNews => {
       if (updatedNews) {
-        console.log(`Ccomment with with id: ${id} deleted from news:`, updatedNews);
+        console.log(`Comment with with id: ${id} deleted from news:`, updatedNews);
       } else {
         console.log(`Didn't find comment with with id: ${id}`);
       }
@@ -74,9 +74,28 @@ const deletecomment = async (req, res) => {
 }
 
 
+const deletenews = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const news = await newsModel.findById(id);
+
+    if (!news) {
+      return res.status(404).json({ error: 'News not found' });
+    }
+
+    await news.remove();
+
+    res.sendStatus(200);
+  } catch (deleteError) {
+    console.error(deleteError);
+    res.status(500).send('Server Error');
+  }
+};
+
 module.exports = {
   news,
   addnews,
   addcomment,
-  deletecomment
+  deletecomment,
+  deletenews
 }
